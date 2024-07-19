@@ -1,3 +1,6 @@
+from time import sleep
+
+
 class UrTube:
     def __init__(self):
         self.users = list()
@@ -51,6 +54,7 @@ class UrTube:
                     return
                 for i in range(1, name_of_film.duration + 1):
                     print(i, end=' ')
+                    sleep(1)
                 print("Конец видео")
 
 
