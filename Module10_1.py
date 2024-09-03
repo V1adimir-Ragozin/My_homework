@@ -1,42 +1,39 @@
-from threading import Thread
 from time import sleep
-import datetime
+from datetime import datetime
+from threading import Thread
 
-now = datetime.datetime.now
-
-
-start = now()
 
 def write_words(word_count, file_name):
-    file = open(file_name, "w+")
-    for i in range(1, word_count+1):
-        file.write("Какое-то слово N {}\n".format(i))
-        sleep(0.1)
-    print("Завершилась запись в файл {}".format(file_name))
+    for num in range(1, word_count + 1):
+        with open(file_name, 'a', encoding='utf-8') as file:
+            file.write(f'Какое-то слово № {num}\n')
+            sleep(0.1)
     file.close()
-
-def run_threads(thrds):
-    start = now()
-    for thr in thrds:
-        thr.start()
-        thr.join()
-    elapsed = now() - start
-    print("Работа потоков {}".format(elapsed))
-
-t1 = Thread(target=write_words, args=(10, 'example1.txt'))
-t2 = Thread(target=write_words, args=(30, 'example2.txt'))
-t3 = Thread(target=write_words, args=(200, 'example3.txt'))
-t4 = Thread(target=write_words, args=(100, 'example4.txt'))
-t = [t1, t2, t3, t4]
+    print(f'Завершилась запись в файл {file_name}')
 
 
-t5 = Thread(target=write_words, args=(10, 'example5.txt'))
-t6 = Thread(target=write_words, args=(30, 'example6.txt'))
-t7 = Thread(target=write_words, args=(200, 'example7.txt'))
-t8 = Thread(target=write_words, args=(100, 'example8.txt'))
-t2 = [t5, t6, t7, t8]
+start_time1 = datetime.now()
+write_words(10, 'example1.txt')
+write_words(30, 'example2.txt')
+write_words(200, 'example3.txt')
+write_words(100, 'example4.txt')
+stop_time1 = datetime.now()
+print(f'Time_elapsed_1: {stop_time1 - start_time1}')
 
+start_time2 = datetime.now()
+thread_1 = Thread(target=write_words, args=(10, 'example5.txt'))
+thread_2 = Thread(target=write_words, args=(30, 'example6.txt'))
+thread_3 = Thread(target=write_words, args=(200, 'example7.txt'))
+thread_4 = Thread(target=write_words, args=(100, 'example8.txt'))
 
-if __name__ == "__main__":
-    run_threads(t)
-    run_threads(t2)
+thread_1.start()
+thread_2.start()
+thread_3.start()
+thread_4.start()
+
+thread_1.join()
+thread_2.join()
+thread_3.join()
+thread_4.join()
+stop_time2 = datetime.now()
+print(f'Time_elapsed_2: {stop_time2 - start_time2}')
