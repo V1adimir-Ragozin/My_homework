@@ -36,21 +36,16 @@ ikm = InlineKeyboardMarkup(
     ]
 )
 
-# buy_ikm = InlineKeyboardMarkup(
-#     inline_keyboard=[
-#         [InlineKeyboardButton('Product1', callback_data='product_buying')],
-#         [InlineKeyboardButton('Product2', callback_data='product_buying')],
-#         [InlineKeyboardButton('Product3', callback_data='product_buying')],
-#         [InlineKeyboardButton('Product4', callback_data='product_buying')]
-#     ]
-# )
-
-buy_ikm = InlineKeyboardMarkup()
-Product1 = InlineKeyboardButton('Product1', callback_data='product_buying')
-Product2 = InlineKeyboardButton('Product2', callback_data='product_buying')
-Product3 = InlineKeyboardButton('Product3', callback_data='product_buying')
-Product4 = InlineKeyboardButton('Product4', callback_data='product_buying')
-buy_ikm.row(Product1, Product2, Product3, Product4)
+buy_ikm = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton('Product1', callback_data='product_buying'),
+            InlineKeyboardButton('Product2', callback_data='product_buying'),
+            InlineKeyboardButton('Product3', callback_data='product_buying'),
+            InlineKeyboardButton('Product4', callback_data='product_buying')
+        ]
+    ]
+)
 
 
 @dp.message_handler(commands=['start'])
@@ -85,19 +80,19 @@ async def send_calories(message, state):
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     await message.answer('Название: Product1 | Описание: описание 1 | Цена: 100')
-    with open('product_imgs/prod_1.webp', 'rb') as img:
+    with open('Мумиё.webp', 'rb') as img:
         await message.answer_photo(img)
 
     await message.answer('Название: Product2 | Описание: описание 2 | Цена: 200')
-    with open('product_imgs/prod_2.webp', 'rb') as img:
+    with open('Прополис.webp', 'rb') as img:
         await message.answer_photo(img)
 
     await message.answer('Название: Product3 | Описание: описание 3 | Цена: 300')
-    with open('product_imgs/prod_3.webp', 'rb') as img:
+    with open('Кумыс.webp', 'rb') as img:
         await message.answer_photo(img)
 
     await message.answer('Название: Product4 | Описание: описание 4 | Цена: 400')
-    with open('product_imgs/prod_4.webp', 'rb') as img:
+    with open('Алоэ-вера.webp', 'rb') as img:
         await message.answer_photo(img)
 
     await message.answer('Выберите продукт для покупки:', reply_markup=buy_ikm)
